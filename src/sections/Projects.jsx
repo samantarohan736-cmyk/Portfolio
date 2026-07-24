@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaGithub, FaExternalLinkAlt, FaFolder, FaCube } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaChevronDown } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 import weddingImg from '../assets/Wedding.png';
 import bike from '../assets/Bike.png';
@@ -13,354 +13,258 @@ gsap.registerPlugin(ScrollTrigger);
 const projectData = [
   {
     id: 1,
+    num: "01",
     title: "Wedding Invitation Site",
     description: "A feature-rich wedding celebration platform complete with guest RSVP management, ceremony itinerary, interactive location maps, ambient audio player, and smooth Framer Motion animations.",
     image: weddingImg,
     category: "React",
     tech: ["React", "Tailwind CSS", "Framer Motion"],
     github: "https://github.com/samantarohan736-cmyk/Wedding_Invitation.git",
-    live: "https://wedding-invitation-mocha-three.vercel.app/"
+    live: "https://wedding-invitation-mocha-three.vercel.app/",
+    color: "#00f0ff"
   },
   {
     id: 2,
+    num: "02",
     title: "Quick Bike Application",
     description: "An intuitive ride-booking web application enabling seamless route selection between locations with real-time map integration and automated payment simulation.",
     image: bike,
     category: "Frontend",
     tech: ["React", "Tailwind CSS", "Firebase"],
     github: "https://github.com/samantarohan736-cmyk/quick_.bike.git",
-    live: "https://quickbike.vercel.app/"
+    live: "https://quickbike.vercel.app/",
+    color: "#b026ff"
   },
   {
     id: 3,
+    num: "03",
     title: "Scientific Calculator",
     description: "A fully functional scientific web calculator equipped with advanced trigonometric, logarithmic, and algebraic functions alongside calculation history logging.",
     image: calculator,
     category: "Frontend",
     tech: ["JavaScript", "HTML5", "CSS3"],
     github: "https://github.com/samantarohan736-cmyk/Scientific-Calculator.git",
-    live: "https://scientific-calculator-nine-pink.vercel.app/"
+    live: "https://scientific-calculator-nine-pink.vercel.app/",
+    color: "#00ffff"
   }
 ];
 
-const categories = ["All", "Frontend", "React"];
-
-const ProjectCard3D = ({ project, index }) => {
-  const cardRef = useRef(null);
-  const imageRef = useRef(null);
-  const titleRef = useRef(null);
-  const badgeRef = useRef(null);
-  const lightRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const card = cardRef.current;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -18;
-    const rotateY = ((x - centerX) / centerX) * 18;
-
-    // 3D Parallax Tilt for Main Card Container
-    gsap.to(card, {
-      rotateX: rotateX,
-      rotateY: rotateY,
-      duration: 0.4,
-      ease: "power2.out",
-    });
-
-    // 3D Parallax Layering: Image floats back, text pops forward
-    if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        z: 25,
-        scale: 1.06,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    }
-
-    if (titleRef.current) {
-      gsap.to(titleRef.current, {
-        z: 45,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    }
-
-    if (badgeRef.current) {
-      gsap.to(badgeRef.current, {
-        z: 60,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    }
-
-    // Dynamic Light Beam Reflection
-    if (lightRef.current) {
-      gsap.to(lightRef.current, {
-        x: x - rect.width / 2,
-        y: y - rect.height / 2,
-        opacity: 0.35,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    
-    gsap.to(cardRef.current, {
-      rotateX: 0,
-      rotateY: 0,
-      duration: 0.7,
-      ease: "power3.out",
-    });
-
-    if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        z: 0,
-        scale: 1,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    }
-
-    if (titleRef.current) {
-      gsap.to(titleRef.current, {
-        z: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    }
-
-    if (badgeRef.current) {
-      gsap.to(badgeRef.current, {
-        z: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    }
-
-    if (lightRef.current) {
-      gsap.to(lightRef.current, {
-        opacity: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    }
-  };
-
-  return (
-    <div className="perspective-container" style={{ perspective: "1200px" }}>
-      <motion.div
-        layout
-        initial={{ opacity: 0, y: 50, rotateY: -15 }}
-        animate={{ opacity: 1, y: 0, rotateY: 0 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.6, delay: index * 0.12 }}
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="project-card-3d glass-card overflow-hidden group border border-white/10 hover:border-electric-blue/60 flex flex-col justify-between relative transition-shadow duration-500 hover:shadow-[0_0_35px_rgba(0,240,255,0.3)] cursor-pointer"
-        style={{
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {/* Holographic Light Beam Reflection */}
-        <div
-          ref={lightRef}
-          className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-r from-electric-blue/30 via-neon-cyan/20 to-neon-purple/30 blur-2xl pointer-events-none opacity-0 z-20"
-          style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
-        />
-
-        <div className="relative z-10" style={{ transformStyle: "preserve-3d" }}>
-          
-          {/* 3D Floating Image Frame */}
-          <div 
-            ref={imageRef} 
-            className="relative overflow-hidden h-60 sm:h-64 rounded-t-2xl shadow-xl"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-500" />
-            
-            <img 
-              src={project.image} 
-              alt={project.title} 
-              className="w-full h-full object-cover transform transition-transform duration-700 ease-out"
-            />
-
-            {/* Action Buttons Layer (Pops out in 3D) */}
-            <div 
-              ref={badgeRef}
-              className="absolute top-4 right-4 z-20 flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-y-0 translate-y-3"
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              <motion.a
-                whileHover={{ scale: 1.2, z: 20 }}
-                whileTap={{ scale: 0.9 }}
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full bg-background/90 flex items-center justify-center text-white hover:text-electric-blue border border-electric-blue/40 shadow-[0_0_15px_rgba(0,240,255,0.4)] backdrop-blur-md"
-                title="GitHub Code"
-              >
-                <FaGithub size={20} />
-              </motion.a>
-
-              <motion.a
-                whileHover={{ scale: 1.2, z: 20 }}
-                whileTap={{ scale: 0.9 }}
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full bg-background/90 flex items-center justify-center text-white hover:text-neon-cyan border border-neon-cyan/40 shadow-[0_0_15px_rgba(0,255,255,0.4)] backdrop-blur-md"
-                title="Live Demo"
-              >
-                <FaExternalLinkAlt size={15} />
-              </motion.a>
-            </div>
-          </div>
-
-          {/* 3D Floating Details Section */}
-          <div ref={titleRef} className="p-6 md:p-8" style={{ transformStyle: "preserve-3d" }}>
-            <div className="flex items-center gap-2 text-electric-blue text-xs font-semibold uppercase tracking-wider mb-2">
-              <FaCube className="text-neon-cyan animate-pulse" />
-              <span>{project.category}</span>
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-electric-blue transition-colors duration-300">
-              {project.title}
-            </h3>
-
-            <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">
-              {project.description}
-            </p>
-          </div>
-        </div>
-
-        {/* Tech Badges */}
-        <div className="px-6 md:px-8 pb-6 md:pb-8 relative z-10">
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech, idx) => (
-              <span
-                key={idx}
-                className="px-3.5 py-1 rounded-full text-xs font-semibold bg-electric-blue/10 border border-electric-blue/25 text-electric-blue group-hover:border-electric-blue/50 transition-colors shadow-sm"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
 const Projects = () => {
-  const [filter, setFilter] = useState("All");
   const sectionRef = useRef(null);
-
-  const filteredProjects = projectData.filter(project => 
-    filter === "All" || project.category === filter
-  );
+  const triggerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading 3D Sweep entrance
-      gsap.fromTo(
-        ".project-header-3d",
-        { opacity: 0, y: -40, rotateX: -20 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
-        }
-      );
+      const cards = cardRefs.current.filter(Boolean);
+      if (!cards.length) return;
 
-      // Staggered 3D Cards entrance
-      gsap.fromTo(
-        ".perspective-container",
-        { opacity: 0, y: 80, rotateY: -15, scale: 0.9 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateY: 0,
-          scale: 1,
-          duration: 0.9,
-          stagger: 0.22,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: `+=${cards.length * 100}%`,
+          scrub: 1,
+          pin: true,
+          onUpdate: (self) => {
+            const idx = Math.min(
+              cards.length - 1,
+              Math.floor(self.progress * cards.length)
+            );
+            setActiveCardIndex(idx);
           },
+        },
+      });
+
+      cards.forEach((card, i) => {
+        if (i === 0) {
+          gsap.set(card, {
+            transformOrigin: "center center",
+            zIndex: 10,
+            scale: 1,
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+          });
+          return;
         }
-      );
-    }, sectionRef);
+
+        gsap.set(card, {
+          transformOrigin: "center center",
+          zIndex: 10 + i,
+          y: "110%",
+          scale: 0.85,
+          opacity: 0,
+          rotateX: -25,
+        });
+
+        tl.to(
+          cards[i - 1],
+          {
+            scale: 0.88 - (cards.length - i) * 0.03,
+            y: -45 * i,
+            rotateX: 12,
+            opacity: 0.45,
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          `step-${i}`
+        ).to(
+          card,
+          {
+            y: "0%",
+            scale: 1,
+            opacity: 1,
+            rotateX: 0,
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          `step-${i}`
+        );
+      });
+    }, triggerRef);
 
     return () => ctx.revert();
-  }, [filter]);
+  }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-28 px-6 relative z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Heading */}
-        <div className="project-header-3d text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-electric-blue/30 text-electric-blue text-xs font-semibold uppercase tracking-widest mb-3">
+    <section id="projects" ref={triggerRef} className="relative z-10 min-h-screen bg-background overflow-hidden">
+      <div 
+        ref={sectionRef} 
+        className="w-full min-h-screen flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-6 max-w-7xl mx-auto relative"
+        style={{ perspective: "1400px" }}
+      >
+        {/* Section Header */}
+        <div className="text-center pt-2 sm:pt-6 mb-3 sm:mb-5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-electric-blue/30 text-electric-blue text-[11px] sm:text-xs font-semibold uppercase tracking-widest mb-1.5">
             <HiSparkles />
-            <span>Interactive 3D Portfolio</span>
+            <span>3D Interactive Deck</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-1.5">
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto text-sm md:text-base">
-            Hover over cards to experience real-time 3D parallax depth & holographic light reflections.
+          <p className="text-gray-400 max-w-xl mx-auto text-xs sm:text-sm">
+            Scroll down to watch 3D project cards stack dynamically layer by layer.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-electric-blue via-neon-purple to-neon-cyan mx-auto rounded-full mt-4" />
         </div>
 
-        {/* Category Pills */}
-        <div className="flex flex-wrap justify-center gap-3 mb-14">
-          {categories.map((cat, idx) => (
-            <motion.button
-              key={idx}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setFilter(cat)}
-              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                filter === cat
-                  ? "bg-gradient-to-r from-electric-blue via-neon-cyan to-electric-blue text-background shadow-[0_0_20px_rgba(0,240,255,0.4)] font-bold"
-                  : "glass text-gray-300 hover:text-white hover:border-electric-blue/40"
-              }`}
+        {/* 3D Stacking Deck Container - Fully Responsive & Scrollable on Mobile */}
+        <div className="relative w-full max-w-5xl xl:max-w-6xl mx-auto h-[480px] sm:h-[520px] md:h-[530px] lg:h-[500px] xl:h-[520px] my-auto">
+          {projectData.map((project, idx) => (
+            <div
+              key={project.id}
+              ref={(el) => (cardRefs.current[idx] = el)}
+              className="absolute inset-0 w-full h-full glass-card border border-white/15 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row gap-4 lg:gap-8 items-stretch lg:items-center shadow-2xl shadow-black/80 overflow-y-auto no-scrollbar lg:overflow-hidden bg-background/95 backdrop-blur-2xl"
+              style={{
+                transformStyle: "preserve-3d",
+                boxShadow: `0 20px 60px -15px ${project.color}30`,
+              }}
             >
-              {cat}
-            </motion.button>
+              {/* Background Glow */}
+              <div 
+                className="absolute inset-0 opacity-20 pointer-events-none rounded-3xl"
+                style={{
+                  background: `radial-gradient(circle at 80% 20%, ${project.color} 0%, transparent 60%)`
+                }}
+              />
+
+              {/* Image Preview (Placed first on mobile so layout reads top-to-bottom naturally) */}
+              <div className="w-full lg:w-1/2 h-32 sm:h-44 md:h-52 lg:h-full rounded-2xl overflow-hidden relative z-10 border border-white/10 shadow-xl group shrink-0">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
+              </div>
+
+              {/* Details Content */}
+              <div className="w-full lg:w-1/2 flex flex-col justify-between h-full z-10 space-y-3 lg:space-y-0">
+                <div>
+                  <div className="flex items-center justify-between mb-2 sm:mb-3">
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-gradient">
+                      {project.num}
+                    </span>
+                    <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold bg-electric-blue/10 border border-electric-blue/30 text-electric-blue">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white mb-2">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-3 sm:line-clamp-4">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div>
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-5">
+                    {project.tech.map((tech, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium bg-white/5 border border-white/10 text-gray-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-3">
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-electric-blue to-neon-cyan text-background font-bold text-xs sm:text-sm hover:shadow-lg hover:shadow-electric-blue/30 transition-all flex items-center gap-1.5"
+                    >
+                      <span>Live Demo</span>
+                      <FaExternalLinkAlt size={11} />
+                    </motion.a>
+
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full glass border border-white/20 text-white font-bold text-xs sm:text-sm hover:bg-white/10 transition-all flex items-center gap-1.5"
+                    >
+                      <span>Source Code</span>
+                      <FaGithub size={13} />
+                    </motion.a>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* 3D Projects Grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
-            {filteredProjects.map((project, index) => (
-              <ProjectCard3D
-                key={project.id}
-                project={project}
-                index={index}
+        {/* Bottom Deck Progress Indicator */}
+        <div className="flex items-center justify-between max-w-5xl xl:max-w-6xl mx-auto w-full pb-2 sm:pb-4 pt-2 z-20">
+          <div className="flex gap-2">
+            {projectData.map((_, i) => (
+              <div
+                key={i}
+                className={`h-2 rounded-full transition-all duration-500 ${
+                  activeCardIndex === i
+                    ? "w-8 bg-electric-blue shadow-[0_0_10px_#00f0ff]"
+                    : "w-2 bg-white/20"
+                }`}
               />
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-mono text-gray-400">
+            <span>Scroll Deck</span>
+            <FaChevronDown className="animate-bounce text-electric-blue" />
+          </div>
+        </div>
       </div>
     </section>
   );
