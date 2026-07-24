@@ -59,10 +59,13 @@ const Hero = () => {
               Download Resume
               <HiDownload className="group-hover:-translate-y-1 transition-transform" />
             </button>
-            <button className="px-8 py-3 rounded-full glass text-white font-bold hover:bg-white/10 transition-colors flex items-center gap-2 group">
+            <a
+              href="#projects"
+              className="px-8 py-3 rounded-full glass text-white font-bold hover:bg-white/10 transition-colors flex items-center gap-2 group cursor-pointer"
+            >
               View Projects
               <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
           </div>
 
           <div className="flex gap-6 mt-8">

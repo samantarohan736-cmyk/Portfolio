@@ -16,7 +16,7 @@ const skillsData = [
   {
     id: "01",
     category: "Frontend Architecture",
-    tagline: "UI/UX, Responsive Frameworks & Client State",
+    tagline: "UI/UX Engineering, Responsive Systems & Client State",
     accentColor: "#ff6b00",
     skills: [
       { name: "React", icon: SiReact, level: 90, color: "#ff6b00", bgGlow: "rgba(255, 107, 0, 0.15)" },
@@ -29,7 +29,7 @@ const skillsData = [
   {
     id: "02",
     category: "Backend & Databases",
-    tagline: "Server Architecture, APIs & Data Persistence",
+    tagline: "Server Systems, REST APIs & Data Persistence",
     accentColor: "#ff0055",
     skills: [
       { name: "Node.js", icon: SiNodedotjs, level: 80, color: "#22c55e", bgGlow: "rgba(34, 197, 94, 0.15)" },
@@ -41,8 +41,8 @@ const skillsData = [
   },
   {
     id: "03",
-    category: "Tools & Cloud Architecture",
-    tagline: "DevOps, Version Control & Cloud Infrastructure",
+    category: "Tools & Cloud Infrastructure",
+    tagline: "DevOps Pipeline, Cloud Deployment & Version Control",
     accentColor: "#ffb700",
     skills: [
       { name: "Git & GitHub", icon: SiGit, level: 90, color: "#f97316", bgGlow: "rgba(249, 115, 22, 0.15)" },
@@ -110,7 +110,7 @@ const Skills = () => {
           trigger: triggerRef.current,
           start: "top top",
           end: `+=${cards.length * 90}%`,
-          scrub: 0.5, // Buttery smooth instantaneous scrub
+          scrub: 0.5,
           pin: true,
           onUpdate: (self) => {
             const idx = Math.min(
@@ -149,7 +149,7 @@ const Skills = () => {
         tl.to(
           cards[i - 1],
           {
-            scale: 0.9 - (cards.length - i) * 0.03,
+            scale: 0.88 - (cards.length - i) * 0.03,
             y: -35 * i,
             rotateX: 10,
             opacity: 0.45,
@@ -188,7 +188,7 @@ const Skills = () => {
         <div className="text-center pt-2 sm:pt-6 mb-3 sm:mb-5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-electric-blue/30 text-electric-blue text-[11px] sm:text-xs font-semibold uppercase tracking-widest mb-1.5">
             <HiSparkles />
-            <span>3D Stacked Tech Arsenal</span>
+            <span>3D Interactive Deck</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-1.5">
             Technical <span className="text-gradient">Skills</span>
@@ -198,13 +198,13 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* 3D Stacking Deck Container */}
-        <div className="relative w-full max-w-5xl xl:max-w-6xl mx-auto h-[500px] sm:h-[530px] md:h-[520px] lg:h-[490px] xl:h-[510px] my-auto">
+        {/* 3D Stacking Deck Container - Matching Projects Section Dimensions & Responsive Flow */}
+        <div className="relative w-full max-w-5xl xl:max-w-6xl mx-auto h-[480px] sm:h-[520px] md:h-[530px] lg:h-[500px] xl:h-[520px] my-auto">
           {skillsData.map((group, idx) => (
             <div
               key={group.id}
               ref={(el) => (cardRefs.current[idx] = el)}
-              className="absolute inset-0 w-full h-full glass-card border border-white/15 rounded-3xl p-5 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-between shadow-2xl shadow-black/80 overflow-y-auto no-scrollbar lg:overflow-hidden bg-background/95 backdrop-blur-2xl"
+              className="absolute inset-0 w-full h-full glass-card border border-white/15 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-between shadow-2xl shadow-black/80 overflow-y-auto no-scrollbar lg:overflow-hidden bg-background/95 backdrop-blur-2xl"
               style={{
                 transformStyle: "preserve-3d",
                 willChange: "transform, opacity",
@@ -212,7 +212,7 @@ const Skills = () => {
                 boxShadow: `0 20px 60px -15px ${group.accentColor}35`,
               }}
             >
-              {/* Background Ambient Glow */}
+              {/* Background Glow */}
               <div 
                 className="absolute inset-0 opacity-20 pointer-events-none rounded-3xl"
                 style={{
@@ -220,14 +220,14 @@ const Skills = () => {
                 }}
               />
 
-              {/* Stack Category Top Header */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 z-10">
+              {/* Stack Category Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-3 sm:pb-4 mb-3 sm:mb-4 z-10">
                 <div>
                   <div className="flex items-center gap-3">
                     <span className="text-2xl sm:text-3xl font-extrabold font-mono text-gradient">
                       {group.id}
                     </span>
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white">
+                    <h3 className="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white">
                       {group.category}
                     </h3>
                   </div>
@@ -245,12 +245,12 @@ const Skills = () => {
               </div>
 
               {/* Grid of Skill Cards inside the Active 3D Category Deck */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4 my-auto z-10">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 my-auto z-10">
                 {group.skills.map((skill, sIdx) => (
                   <motion.div
                     key={skill.name}
                     whileHover={{ y: -6, scale: 1.04 }}
-                    className="glass-card p-3.5 sm:p-4 flex flex-col items-center justify-between gap-3 group cursor-pointer relative overflow-hidden border border-white/10 hover:border-white/25 transition-all"
+                    className="glass-card p-3 sm:p-4 flex flex-col items-center justify-between gap-2.5 sm:gap-3 group cursor-pointer relative overflow-hidden border border-white/10 hover:border-white/25 transition-all"
                   >
                     {/* Radial Brand Glow */}
                     <div
@@ -260,9 +260,9 @@ const Skills = () => {
                       }}
                     />
 
-                    {/* Top Row: Icon & Circular Ring */}
+                    {/* Top Row: Icon & Circular Progress */}
                     <div className="w-full flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-2xl transition-transform group-hover:scale-110">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-xl sm:text-2xl transition-transform group-hover:scale-110">
                         <skill.icon style={{ color: skill.color }} />
                       </div>
                       <CircularProgress level={skill.level} color={skill.color} />
@@ -273,7 +273,7 @@ const Skills = () => {
                       <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-electric-blue transition-colors truncate">
                         {skill.name}
                       </h4>
-                      <div className="w-full bg-white/10 rounded-full h-1 mt-2 overflow-hidden">
+                      <div className="w-full bg-white/10 rounded-full h-1 mt-1.5 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
@@ -294,13 +294,13 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Bottom Category Deck Navigation Dots */}
+        {/* Bottom Category Deck Navigation */}
         <div className="flex items-center justify-between max-w-5xl xl:max-w-6xl mx-auto w-full pb-2 sm:pb-4 pt-2 z-20">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {skillsData.map((cat, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-500 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold transition-all duration-500 ${
                   activeCategoryIndex === i
                     ? "bg-electric-blue text-background shadow-[0_0_15px_#ff6b00]"
                     : "glass text-gray-400"
@@ -313,7 +313,7 @@ const Skills = () => {
           </div>
 
           <div className="flex items-center gap-2 text-xs font-mono text-gray-400">
-            <span>Scroll Stack</span>
+            <span>Scroll Deck</span>
             <FaChevronDown className="animate-bounce text-electric-blue" />
           </div>
         </div>
