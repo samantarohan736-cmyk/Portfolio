@@ -1,64 +1,137 @@
-import { motion } from 'framer-motion';
-import { HiCode, HiFolder, HiStar, HiClock } from 'react-icons/hi';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { HiCode, HiFolder, HiStar, HiClock, HiSparkles } from 'react-icons/hi';
 
 const stats = [
-  { label: 'Projects Completed', value: '15+', icon: HiFolder },
-  { label: 'Technologies', value: '20+', icon: HiCode },
-  { label: 'GitHub Repos', value: '20+', icon: HiStar },
-  { label: 'Coding Hours', value: '1000+', icon: HiClock },
+  { label: 'Projects Completed', value: '15+', icon: HiFolder, color: "#00f0ff" },
+  { label: 'Technologies Used', value: '20+', icon: HiCode, color: "#b026ff" },
+  { label: 'GitHub Repositories', value: '20+', icon: HiStar, color: "#00ffff" },
+  { label: 'Coding Hours', value: '1000+', icon: HiClock, color: "#38bdf8" },
 ];
+
+const Word = ({ children, progress, range }) => {
+  const color = useTransform(progress, range, ["#4b5563", "#ffffff"]);
+  const opacity = useTransform(progress, range, [0.35, 1]);
+  const textShadow = useTransform(progress, range, [
+    "0px 0px 0px rgba(0, 240, 255, 0)",
+    "0px 0px 10px rgba(0, 240, 255, 0.5)"
+  ]);
+
+  return (
+    <motion.span
+      style={{ color, opacity, textShadow }}
+      className="inline-block mr-2.5 my-1 font-medium transition-all"
+    >
+      {children}
+    </motion.span>
+  );
+};
+
+const ScrollRevealParagraph = ({ text }) => {
+  const targetRef = useRef(null);
+  const words = text.split(" ");
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start 0.85", "end 0.45"],
+  });
+
+  return (
+    <div ref={targetRef} className="flex flex-wrap text-xl sm:text-2xl md:text-3xl leading-relaxed tracking-tight select-none">
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = start + (1 / words.length);
+        return (
+          <Word key={i} progress={scrollYProgress} range={[start, end]}>
+            {word}
+          </Word>
+        );
+      })}
+    </div>
+  );
+};
 
 const About = () => {
   return (
-    <section id="about" className="py-24 px-6 relative">
+    <section id="about" className="py-28 px-6 relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-electric-blue/30 text-electric-blue text-xs font-semibold uppercase tracking-widest mb-3">
+            <HiSparkles />
+            <span>Get To Know Me</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
             About <span className="text-gradient">Me</span>
           </h2>
-          <div className="w-20 h-1 bg-electric-blue mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-gradient-to-r from-electric-blue via-neon-purple to-neon-cyan mx-auto rounded-full mt-2" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6 text-gray-300 text-lg leading-relaxed"
-          >
-            <p>
-              I am a passionate software developer with a strong foundation in building scalable web applications. My journey in tech started with a curiosity for how things work on the internet, which quickly turned into a career I love.
-            </p>
-            <p>
-              My goal is to create products that not only solve real-world problems but also provide an intuitive and beautiful user experience. I thrive in environments where I can learn new technologies and collaborate with creative minds.
-            </p>
-          </motion.div>
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Side: Scroll-Driven Color Changing Text */}
+          <div className="lg:col-span-7 space-y-8 glass-card p-8 md:p-10 border border-white/10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-electric-blue/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <ScrollRevealParagraph 
+              text="I am a passionate software developer with a strong foundation in building scalable web applications. My journey in tech started with a curiosity for how things work on the internet, which quickly turned into a career I love." 
+            />
 
-          <div className="grid grid-cols-2 gap-6">
+            <div className="w-full h-[1px] bg-gradient-to-r from-electric-blue/30 via-white/10 to-transparent" />
+
+            <ScrollRevealParagraph 
+              text="My goal is to create products that not only solve real-world problems but also provide an intuitive and beautiful user experience. I thrive in environments where I can learn new technologies and collaborate with creative minds." 
+            />
+          </div>
+
+          {/* Right Side: Animated Glass Metrics Cards */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-6">
             {stats.map((stat, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="glass-card p-6 flex flex-col items-center text-center group cursor-default"
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                whileHover={{ y: -8, scale: 1.03 }}
+                className="glass-card p-6 flex flex-col items-center text-center group cursor-pointer relative overflow-hidden border border-white/10 hover:border-electric-blue/40 transition-all duration-300"
               >
-                <stat.icon className="text-4xl text-electric-blue mb-4 group-hover:text-neon-cyan transition-colors" />
-                <h3 className="text-3xl font-bold text-white mb-2">{stat.value}</h3>
-                <p className="text-gray-400 text-sm font-medium">{stat.label}</p>
+                {/* Background glow on card hover */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: `radial-gradient(circle at center, ${stat.color} 0%, transparent 70%)` }}
+                />
+
+                <div 
+                  className="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-4 text-2xl transition-transform duration-300 group-hover:scale-110"
+                  style={{ color: stat.color, border: `1px solid ${stat.color}40` }}
+                >
+                  <stat.icon />
+                </div>
+
+                <h3 
+                  className="text-3xl sm:text-4xl font-extrabold text-white mb-2 transition-all duration-300"
+                  style={{ textShadow: `0 0 15px ${stat.color}40` }}
+                >
+                  {stat.value}
+                </h3>
+                <p className="text-gray-400 text-xs sm:text-sm font-medium">
+                  {stat.label}
+                </p>
               </motion.div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
   );
 };
+
 export default About;
