@@ -109,8 +109,8 @@ const Skills = () => {
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: `+=${cards.length * 100}%`,
-          scrub: 1,
+          end: `+=${cards.length * 90}%`,
+          scrub: 0.5, // Buttery smooth instantaneous scrub
           pin: true,
           onUpdate: (self) => {
             const idx = Math.min(
@@ -131,6 +131,7 @@ const Skills = () => {
             y: 0,
             opacity: 1,
             rotateX: 0,
+            force3D: true,
           });
           return;
         }
@@ -138,21 +139,23 @@ const Skills = () => {
         gsap.set(card, {
           transformOrigin: "center center",
           zIndex: 10 + i,
-          y: "110%",
-          scale: 0.85,
+          y: "105%",
+          scale: 0.88,
           opacity: 0,
-          rotateX: -25,
+          rotateX: -15,
+          force3D: true,
         });
 
         tl.to(
           cards[i - 1],
           {
-            scale: 0.88 - (cards.length - i) * 0.03,
-            y: -45 * i,
-            rotateX: 12,
-            opacity: 0.4,
+            scale: 0.9 - (cards.length - i) * 0.03,
+            y: -35 * i,
+            rotateX: 10,
+            opacity: 0.45,
             duration: 1,
-            ease: "power2.inOut",
+            ease: "power1.inOut",
+            force3D: true,
           },
           `step-${i}`
         ).to(
@@ -163,7 +166,8 @@ const Skills = () => {
             opacity: 1,
             rotateX: 0,
             duration: 1,
-            ease: "power2.inOut",
+            ease: "power1.inOut",
+            force3D: true,
           },
           `step-${i}`
         );
@@ -203,6 +207,8 @@ const Skills = () => {
               className="absolute inset-0 w-full h-full glass-card border border-white/15 rounded-3xl p-5 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-between shadow-2xl shadow-black/80 overflow-y-auto no-scrollbar lg:overflow-hidden bg-background/95 backdrop-blur-2xl"
               style={{
                 transformStyle: "preserve-3d",
+                willChange: "transform, opacity",
+                backfaceVisibility: "hidden",
                 boxShadow: `0 20px 60px -15px ${group.accentColor}35`,
               }}
             >

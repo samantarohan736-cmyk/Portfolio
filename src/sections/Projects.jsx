@@ -21,7 +21,7 @@ const projectData = [
     tech: ["React", "Tailwind CSS", "Framer Motion"],
     github: "https://github.com/samantarohan736-cmyk/Wedding_Invitation.git",
     live: "https://wedding-invitation-mocha-three.vercel.app/",
-    color: "#00f0ff"
+    color: "#ff6b00"
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const projectData = [
     tech: ["React", "Tailwind CSS", "Firebase"],
     github: "https://github.com/samantarohan736-cmyk/quick_.bike.git",
     live: "https://quickbike.vercel.app/",
-    color: "#b026ff"
+    color: "#ff0055"
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const projectData = [
     tech: ["JavaScript", "HTML5", "CSS3"],
     github: "https://github.com/samantarohan736-cmyk/Scientific-Calculator.git",
     live: "https://scientific-calculator-nine-pink.vercel.app/",
-    color: "#00ffff"
+    color: "#ffb700"
   }
 ];
 
@@ -64,8 +64,8 @@ const Projects = () => {
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: `+=${cards.length * 100}%`,
-          scrub: 1,
+          end: `+=${cards.length * 90}%`,
+          scrub: 0.5, // Buttery smooth instantaneous scrub
           pin: true,
           onUpdate: (self) => {
             const idx = Math.min(
@@ -86,6 +86,7 @@ const Projects = () => {
             y: 0,
             opacity: 1,
             rotateX: 0,
+            force3D: true,
           });
           return;
         }
@@ -93,21 +94,23 @@ const Projects = () => {
         gsap.set(card, {
           transformOrigin: "center center",
           zIndex: 10 + i,
-          y: "110%",
-          scale: 0.85,
+          y: "105%",
+          scale: 0.88,
           opacity: 0,
-          rotateX: -25,
+          rotateX: -15,
+          force3D: true,
         });
 
         tl.to(
           cards[i - 1],
           {
-            scale: 0.88 - (cards.length - i) * 0.03,
-            y: -45 * i,
-            rotateX: 12,
-            opacity: 0.45,
+            scale: 0.9 - (cards.length - i) * 0.03,
+            y: -35 * i,
+            rotateX: 10,
+            opacity: 0.5,
             duration: 1,
-            ease: "power2.inOut",
+            ease: "power1.inOut",
+            force3D: true,
           },
           `step-${i}`
         ).to(
@@ -118,7 +121,8 @@ const Projects = () => {
             opacity: 1,
             rotateX: 0,
             duration: 1,
-            ease: "power2.inOut",
+            ease: "power1.inOut",
+            force3D: true,
           },
           `step-${i}`
         );
@@ -149,7 +153,7 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* 3D Stacking Deck Container - Fully Responsive & Scrollable on Mobile */}
+        {/* 3D Stacking Deck Container */}
         <div className="relative w-full max-w-5xl xl:max-w-6xl mx-auto h-[480px] sm:h-[520px] md:h-[530px] lg:h-[500px] xl:h-[520px] my-auto">
           {projectData.map((project, idx) => (
             <div
@@ -158,6 +162,8 @@ const Projects = () => {
               className="absolute inset-0 w-full h-full glass-card border border-white/15 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:flex-row gap-4 lg:gap-8 items-stretch lg:items-center shadow-2xl shadow-black/80 overflow-y-auto no-scrollbar lg:overflow-hidden bg-background/95 backdrop-blur-2xl"
               style={{
                 transformStyle: "preserve-3d",
+                willChange: "transform, opacity",
+                backfaceVisibility: "hidden",
                 boxShadow: `0 20px 60px -15px ${project.color}30`,
               }}
             >
@@ -169,7 +175,7 @@ const Projects = () => {
                 }}
               />
 
-              {/* Image Preview (Placed first on mobile so layout reads top-to-bottom naturally) */}
+              {/* Image Preview */}
               <div className="w-full lg:w-1/2 h-32 sm:h-44 md:h-52 lg:h-full rounded-2xl overflow-hidden relative z-10 border border-white/10 shadow-xl group shrink-0">
                 <img
                   src={project.image}
@@ -253,7 +259,7 @@ const Projects = () => {
                 key={i}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   activeCardIndex === i
-                    ? "w-8 bg-electric-blue shadow-[0_0_10px_#00f0ff]"
+                    ? "w-8 bg-electric-blue shadow-[0_0_10px_#ff6b00]"
                     : "w-2 bg-white/20"
                 }`}
               />
