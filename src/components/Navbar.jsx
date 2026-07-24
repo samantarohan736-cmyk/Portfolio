@@ -32,10 +32,13 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        <a href="#home" className="text-2xl font-bold text-white tracking-tighter">
-          <span className="text-electric-blue">&lt;</span>
-          Dev
-          <span className="text-electric-blue">/&gt;</span>
+        <a href="#home" className="flex items-center gap-3 text-2xl font-bold text-white tracking-tighter">
+          <img src="/profileImage.jpeg" alt="Profile" className="w-8 h-8 rounded-full object-cover border border-electric-blue/60" />
+          <span>
+            <span className="text-electric-blue">&lt;</span>
+            Dev
+            <span className="text-electric-blue">/&gt;</span>
+          </span>
         </a>
 
         {/* Desktop Nav */}
