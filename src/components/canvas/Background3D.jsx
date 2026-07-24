@@ -24,8 +24,8 @@ const StarField = (props) => {
       <Points ref={ref} positions={positions} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
-          color="#00f0ff"
-          size={0.003}
+          color="#ff6b00"
+          size={0.0035}
           sizeAttenuation={true}
           depthWrite={false}
         />

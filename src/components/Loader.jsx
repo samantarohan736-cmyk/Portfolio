@@ -13,7 +13,6 @@ const Loader = () => {
   const [msgIndex, setMsgIndex] = useState(0);
 
   useEffect(() => {
-    // Progress counter timer from 0 to 100
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -24,7 +23,6 @@ const Loader = () => {
       });
     }, 22);
 
-    // Status message switcher
     const msgInterval = setInterval(() => {
       setMsgIndex((prev) => (prev + 1) % statusMessages.length);
     }, 600);
@@ -43,7 +41,7 @@ const Loader = () => {
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background px-6 overflow-hidden select-none"
     >
       {/* Background Radial Glow */}
-      <div className="absolute w-[450px] h-[450px] bg-gradient-to-r from-electric-blue/15 via-neon-purple/15 to-neon-cyan/15 rounded-full blur-[120px] animate-pulse pointer-events-none" />
+      <div className="absolute w-[450px] h-[450px] bg-gradient-to-r from-electric-blue/20 via-neon-purple/20 to-neon-cyan/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
 
       {/* Central Animated Loader Core */}
       <div className="relative flex items-center justify-center w-40 h-40 md:w-48 md:h-48 mb-8">
@@ -52,25 +50,25 @@ const Loader = () => {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 rounded-full border-2 border-dashed border-electric-blue/40"
+          className="absolute inset-0 rounded-full border-2 border-dashed border-electric-blue/50"
         />
 
         {/* Outer Rotating Solid Dual Gradient Ring */}
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          className="absolute -inset-3 rounded-full border border-neon-purple/40 border-t-neon-purple border-b-neon-cyan"
+          className="absolute -inset-3 rounded-full border border-neon-purple/50 border-t-neon-purple border-b-neon-cyan"
         />
 
         {/* Pulsing Aura Circle */}
         <motion.div
           animate={{ scale: [0.95, 1.05, 0.95] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-2 rounded-full bg-gradient-to-tr from-electric-blue/20 to-neon-purple/20 blur-md"
+          className="absolute inset-2 rounded-full bg-gradient-to-tr from-electric-blue/25 to-neon-purple/25 blur-md"
         />
 
         {/* Center Circular Profile Avatar */}
-        <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-electric-blue shadow-[0_0_30px_rgba(0,240,255,0.4)] z-10">
+        <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-electric-blue shadow-[0_0_35px_rgba(255,107,0,0.5)] z-10">
           <img
             src="/profileImage.jpeg"
             alt="Loading..."
@@ -80,7 +78,7 @@ const Loader = () => {
           <motion.div
             animate={{ y: ["-100%", "200%"] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-electric-blue to-transparent shadow-[0_0_15px_#00f0ff]"
+            className="absolute inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-electric-blue to-transparent shadow-[0_0_15px_#ff6b00]"
           />
         </div>
       </div>
@@ -108,7 +106,7 @@ const Loader = () => {
           key={msgIndex}
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-electric-blue/90 tracking-wider truncate max-w-[200px]"
+          className="text-electric-blue tracking-wider truncate max-w-[200px]"
         >
           {statusMessages[msgIndex]}
         </motion.span>

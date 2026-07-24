@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-background text-gray-200 font-sans antialiased selection:bg-electric-blue selection:text-background;
+    @apply bg-background text-gray-200 font-sans antialiased selection:bg-electric-blue selection:text-white;
     overflow-x: hidden;
   }
 }
@@ -20,6 +20,12 @@
   }
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-electric-blue via-neon-purple to-neon-cyan;
+  }
+  .glow-box-orange {
+    box-shadow: 0 0 25px -5px rgba(255, 107, 0, 0.35);
+  }
+  .glow-box-amber {
+    box-shadow: 0 0 25px -5px rgba(255, 183, 0, 0.35);
   }
 }
 

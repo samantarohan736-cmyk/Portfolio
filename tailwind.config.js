@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0a',
-        'electric-blue': '#00f0ff',
-        'neon-purple': '#b026ff',
-        'neon-cyan': '#00ffff',
-        'neon-orange': '#ff5e00',
+        background: '#0a080c',
+        'electric-blue': '#ff6b00',
+        'neon-purple': '#ff0055',
+        'neon-cyan': '#ffb700',
+        'neon-orange': '#ff3600',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
