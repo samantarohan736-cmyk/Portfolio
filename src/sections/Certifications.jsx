@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import reactSS from '../assets/reactSS.png'
 import cyberOps from '../assets/cyberOps.png'
+import ethicsSS from '../assets/Ethics.png'
 
 
 const certs = [
@@ -18,16 +19,16 @@ const certs = [
     organization: "udemy",
     date: "July 2026",
     image: reactSS,
-    link: "#"
+    link: "/certificates/React.pdf"
   },
-  // {
-  //   id: 3,
-  //   title: "Google Cloud Professional",
-  //   organization: "Google",
-  //   date: "May 2022",
-  //   image: "https://via.placeholder.com/300x200/1a1a1a/00ffff?text=GCP",
-  //   link: "#"
-  // }
+  {
+   id: 3,
+     title: "Engineering Ethics",
+     organization: "PDH-PRO",
+     date: "july 2026",
+     image: ethicsSS,
+     link: "/certificates/EthicsCertificate.pdf"
+   }
 ];
 
 const Certifications = () => {
