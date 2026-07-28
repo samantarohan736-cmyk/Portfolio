@@ -19,8 +19,8 @@ const projectData = [
     image: weddingImg,
     category: "React",
     tech: ["React", "Tailwind CSS", "Framer Motion"],
-    github: "https://github.com/samantarohan736-cmyk/Wedding_Invitation.git",
-    live: "https://wedding-invitation-mocha-three.vercel.app/",
+    github: "https://github.com/samantarohan736-cmyk/Wedding-Invitation.git",
+    live: "https://wedding-invitation-frontend-perz.onrender.com/",
     color: "#ff6b00"
   },
   {

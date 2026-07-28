@@ -58,7 +58,7 @@ const Hero = () => {
 
           <div className="flex flex-wrap gap-4 mt-4">
             <a
-              href="/certificates/RohanResume.pdf"
+              href="/certificates/My Resume updated.pdf"
               download="RohanResume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -68,7 +68,7 @@ const Hero = () => {
               <HiDownload className="group-hover:-translate-y-1 transition-transform" />
             </a>
             <a
-              href="/certificates/RohanResume.pdf"
+              href="/certificates/My Resume updated.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 rounded-full glass text-white font-bold hover:bg-white/10 transition-colors flex items-center gap-2 group cursor-pointer"
